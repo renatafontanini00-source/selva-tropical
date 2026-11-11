@@ -1,131 +1,319 @@
+```html
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Biomas y Selva Tropical - Canvas Educativo e Interactivo</title>
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;500;600;700&display=swap');
-    body { font-family: 'Plus Jakarta Sans', sans-serif; }
-  </style>
-</head>
-<body class="bg-emerald-950 text-emerald-50 min-h-screen flex flex-col selection:bg-emerald-600 selection:text-white">
-
-  <!-- Header / Buscador -->
-  <header class="bg-emerald-900/80 backdrop-blur-md border-b border-emerald-800 sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
-      <div class="flex items-center gap-3">
-        <div class="bg-emerald-700 p-2.5 rounded-xl shadow-lg shadow-emerald-950/50">
-          <i class="fa-solid fa-seedling text-emerald-100 text-xl"></i>
-        </div>
-        <div>
-          <h1 class="text-xl font-bold tracking-tight text-white">Biomas y Selva Tropical</h1>
-          <p class="text-xs text-emerald-300">Canvas Educativo e Interactivo</p>
-        </div>
-      </div>
-      
-      <!-- Buscador -->
-      <div class="w-full md:w-80 relative">
-        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-emerald-400">
-          <i class="fa-solid fa-magnifying-glass"></i>
-        </div>
-        <input type="text" id="searchInput" placeholder="Buscar conceptos..." 
-          class="w-full pl-10 pr-4 py-2 bg-emerald-950/60 border border-emerald-700/60 rounded-xl text-sm focus:outline-none focus:border-emerald-400 transition-colors placeholder:text-emerald-500 text-white">
-      </div>
-    </div>
-  </header>
-
-  <!-- Main Container -->
-  <main class="max-w-7xl mx-auto px-4 py-8 flex-grow w-full">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudio de los Biomas Terrestres & Selva Tropical</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome para iconografía visual -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter & Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Categorías / Filtros -->
-    <div class="flex items-center gap-2 overflow-x-auto pb-4 mb-6 no-scrollbar">
-      <button onclick="filterCategory('all')" id="btn-all" class="category-btn px-4 py-2 rounded-xl text-sm font-semibold bg-emerald-700 text-white shadow-md transition-all whitespace-nowrap">
-        <i class="fa-solid fa-layer-group mr-2"></i>Todos
-      </button>
-      <button onclick="filterCategory('selva')" id="btn-selva" class="category-btn px-4 py-2 rounded-xl text-sm font-semibold bg-emerald-900/60 hover:bg-emerald-800 text-emerald-200 border border-emerald-800 transition-all whitespace-nowrap">
-        <i class="fa-solid fa-tree mr-2"></i>Selva Tropical
-      </button>
-    </div>
-
-    <!-- Tarjetas de Contenido -->
-    <div id="cardsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      
-      <!-- Tarjeta 1 -->
-      <div class="biome-card bg-emerald-900/40 border border-emerald-800/80 rounded-2xl p-6 shadow-xl hover:border-emerald-600 transition-all flex flex-col justify-between" data-category="selva">
-        <div>
-          <span class="inline-block px-3 py-1 rounded-full text-xs font-medium bg-emerald-800 text-emerald-200 mb-3">Clima y Temperatura</span>
-          <h3 class="text-lg font-bold text-white mb-2">Clima Cálido y Húmedo</h3>
-          <p class="text-sm text-emerald-200/80 leading-relaxed">
-            La selva tropical se caracteriza por temperaturas elevadas durante todo el año (promedio de 25°C a 30°C) y precipitaciones abundantes superiores a los 2.000 mm anuales.
-          </p>
-        </div>
-        <div class="mt-6 pt-4 border-t border-emerald-800/60 flex items-center justify-between text-xs text-emerald-400">
-          <span><i class="fa-solid fa-droplet mr-1"></i> Alta humedad</span>
-          <span>Región ecuatorial</span>
-        </div>
-      </div>
-
-      <!-- Tarjeta 2 -->
-      <div class="biome-card bg-emerald-900/40 border border-emerald-800/80 rounded-2xl p-6 shadow-xl hover:border-emerald-600 transition-all flex flex-col justify-between" data-category="selva">
-        <div>
-          <span class="inline-block px-3 py-1 rounded-full text-xs font-medium bg-emerald-800 text-emerald-200 mb-3">Flora y Estratos</span>
-          <h3 class="text-lg font-bold text-white mb-2">Vegetación en Capas</h3>
-          <p class="text-sm text-emerald-200/80 leading-relaxed">
-            Presenta una estructura vertical compleja dividida en cuatro estratos: emergente, dosel (copas), sotobosque y suelo. Destacan los árboles gigantes, lianas y epífitas.
-          </p>
-        </div>
-        <div class="mt-6 pt-4 border-t border-emerald-800/60 flex items-center justify-between text-xs text-emerald-400">
-          <span><i class="fa-solid fa-tree mr-1"></i> Gran biodiversidad</span>
-          <span>Competencia por luz</span>
-        </div>
-      </div>
-
-      <!-- Tarjeta 3 -->
-      <div class="biome-card bg-emerald-900/40 border border-emerald-800/80 rounded-2xl p-6 shadow-xl hover:border-emerald-600 transition-all flex flex-col justify-between" data-category="selva">
-        <div>
-          <span class="inline-block px-3 py-1 rounded-full text-xs font-medium bg-emerald-800 text-emerald-200 mb-3">Fauna y Adaptaciones</span>
-          <h3 class="text-lg font-bold text-white mb-2">Fauna Diversificada</h3>
-          <p class="text-sm text-emerald-200/80 leading-relaxed">
-            Alberga más de la mitad de las especies terrestres del mundo. Incluye aves coloridas, mamíferos arborícolas, reptiles y una enorme variedad de insectos.
-          </p>
-        </div>
-        <div class="mt-6 pt-4 border-t border-emerald-800/60 flex items-center justify-between text-xs text-emerald-400">
-          <span><i class="fa-solid fa-paw mr-1"></i> Especies endémicas</span>
-          <span>Nicho arborícola</span>
-        </div>
-      </div>
-
-    </div>
-  </main>
-
-  <!-- Script de Filtro y Buscador -->
-  <script>
-    const searchInput = document.getElementById('searchInput');
-    const cards = document.querySelectorAll('.biome-card');
-
-    searchInput.addEventListener('input', (e) => {
-      const term = e.target.value.toLowerCase();
-      cards.forEach(card => {
-        const text = card.textContent.toLowerCase();
-        card.style.display = text.includes(term) ? 'flex' : 'none';
-      });
-    });
-
-    function filterCategory(category) {
-      cards.forEach(card => {
-        if (category === 'all' || card.dataset.category === category) {
-          card.style.display = 'flex';
-        } else {
-          card.style.display = 'none';
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        jungle: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                            950: '#052e16',
+                        },
+                        earth: {
+                            50: '#fdf8f6',
+                            100: '#f2e8e5',
+                            500: '#b45309',
+                            800: '#78350f',
+                            900: '#451a03',
+                        },
+                        amazon: {
+                            dark: '#0a1f14',
+                            card: '#11291c',
+                            accent: '#eab308',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    }
+                }
+            }
         }
-      });
-    }
-  </script>
-</body>
-</html>
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #07150d;
+            color: #ecfdf5;
+        }
+        .font-display {
+            font-family: 'Outfit', sans-serif;
+        }
+        .glass-card {
+            background: rgba(18, 43, 29, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(74, 222, 128, 0.15);
+        }
+        .glass-card:hover {
+            border-color: rgba(74, 222, 128, 0.4);
+            box-shadow: 0 10px 30px -10px rgba(34, 197, 94, 0.25);
+        }
+        .glass-nav {
+            background: rgba(7, 21, 13, 0.85);
+            backdrop-filter: blur(16px);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #4ade80 0%, #a7f3d0 50%, #fef08a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .danger-gradient-text {
+            background: linear-gradient(135deg, #f87171 0%, #fbbf24 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #0a1f14;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #166534;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #22c55e;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-jungle-500 selection:text-jungle-950">
 
+    <!-- Navbar & Dashboard Header -->
+    <header class="sticky top-0 z-40 glass-nav border-b border-jungle-800/40 px-4 lg:px-8 py-3 transition-all duration-300">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <!-- Logo / Brand -->
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-jungle-400 to-jungle-700 flex items-center justify-center text-jungle-950 font-bold text-xl shadow-lg shadow-jungle-900/50">
+                    <i class="fa-solid font-bold fa-tree"></i>
+                </div>
+                <div>
+                    <h1 class="font-display font-bold text-lg leading-tight text-white tracking-wide">
+                        Canvas de Biomas Terrestres
+                    </h1>
+                    <p class="text-xs text-jungle-300/80 font-medium">Dashboard Educativo e Interactivo</p>
+                </div>
+            </div>
+
+            <!-- Fast Search & Filter -->
+            <div class="flex items-center gap-3 w-full md:w-auto">
+                <div class="relative flex-grow md:w-64">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-jungle-400/60 text-xs"></i>
+                    <input type="text" id="searchInput" onkeyup="filterContent()" placeholder="Buscar conceptos, flora, clima..." 
+                        class="w-full pl-9 pr-4 py-1.5 bg-jungle-950/80 border border-jungle-800 text-sm rounded-lg text-emerald-100 placeholder-jungle-500 focus:outline-none focus:border-jungle-400 focus:ring-1 focus:ring-jungle-400 transition-all">
+                </div>
+                <button onclick="resetFilters()" class="px-3 py-1.5 bg-jungle-900/60 hover:bg-jungle-800 border border-jungle-700/50 rounded-lg text-xs font-semibold text-jungle-200 transition-all flex items-center gap-1.5 shrink-0">
+                    <i class="fa-solid fa-rotate-left"></i> Restablecer
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section Banner -->
+    <section class="relative py-12 px-4 lg:px-8 overflow-hidden bg-gradient-to-b from-jungle-950 via-emerald-950/40 to-transparent">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#4ade80_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto text-center relative z-10">
+            <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-jungle-900/80 border border-jungle-600/40 text-jungle-300 text-xs font-semibold tracking-wide uppercase mb-4">
+                <i class="fa-solid fa-earth-americas text-jungle-400"></i> Ecología & Geografía Global
+            </span>
+            <h2 class="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold gradient-text tracking-tight mb-4">
+                Estudio de los Biomas Terrestres & Selva Tropical
+            </h2>
+            <p class="max-w-3xl mx-auto text-jungle-200/80 text-sm sm:text-base leading-relaxed">
+                Explora las interacciones climáticas, los gradientes altitudinales, las particularidades ecológicas del pastizal pampeano y la crítica situación actual de la selva amazónica.
+            </p>
+            
+            <!-- Category Navigation Chips -->
+            <div class="flex flex-wrap items-center justify-center gap-2 mt-8" id="categoryChips">
+                <button onclick="filterCategory('all')" data-cat="all" class="cat-btn active px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-jungle-500 text-jungle-950 shadow-md shadow-jungle-500/20">
+                    <i class="fa-solid fa-grid-2"></i> Todos los Temas
+                </button>
+                <button onclick="filterCategory('selva')" data-cat="selva" class="cat-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-jungle-900/70 text-jungle-200 hover:bg-jungle-800 border border-jungle-800">
+                    <i class="fa-solid fa-tree text-emerald-400 mr-1.5"></i> Selva Tropical
+                </button>
+                <button onclick="filterCategory('factores')" data-cat="factores" class="cat-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-jungle-900/70 text-jungle-200 hover:bg-jungle-800 border border-jungle-800">
+                    <i class="fa-solid fa-cloud-sun-rain text-amber-400 mr-1.5"></i> Factores Climáticos
+                </button>
+                <button onclick="filterCategory('altitud')" data-cat="altitud" class="cat-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-jungle-900/70 text-jungle-200 hover:bg-jungle-800 border border-jungle-800">
+                    <i class="fa-solid fa-mountain text-sky-400 mr-1.5"></i> Altitud & Pisos
+                </button>
+                <button onclick="filterCategory('argentina')" data-cat="argentina" class="cat-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-jungle-900/70 text-jungle-200 hover:bg-jungle-800 border border-jungle-800">
+                    <i class="fa-solid fa-map-location-dot text-teal-400 mr-1.5"></i> Bioma Argentina
+                </button>
+                <button onclick="filterCategory('amazonia')" data-cat="amazonia" class="cat-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-red-950/60 text-red-300 border border-red-800/60 hover:bg-red-900/80">
+                    <i class="fa-solid fa-triangle-exclamation text-red-400 mr-1.5"></i> Crisis Amazónica
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Grid -->
+    <main class="max-w-7xl mx-auto px-4 lg:px-8 py-8 flex-grow w-full">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="cardsContainer">
+
+            <!-- TARJETA 1: Selva o Bosque Tropical -->
+            <article class="card-item glass-card rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between group" data-category="selva">
+                <div>
+                    <!-- Card Header -->
+                    <div class="flex items-start justify-between mb-4">
+                        <span class="px-3 py-1 rounded-lg bg-emerald-900/50 border border-emerald-700/50 text-emerald-300 text-xs font-bold tracking-wide uppercase">
+                            Pregunta 1
+                        </span>
+                        <div class="w-10 h-10 rounded-xl bg-emerald-950 border border-emerald-700/40 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-leaf text-lg"></i>
+                        </div>
+                    </div>
+
+                    <h3 class="font-display font-bold text-xl text-white mb-2 group-hover:text-jungle-300 transition-colors">
+                        Características de la Selva o Bosque Tropical
+                    </h3>
+                    <p class="text-xs text-jungle-300/90 mb-4 line-clamp-2">
+                        Clima cálido constante, estratificación vegetal, inmensa biodiversidad y severas problemáticas antrópicas.
+                    </p>
+
+                    <!-- Feature Pillars -->
+                    <div class="space-y-3 my-4">
+                        <div class="p-2.5 rounded-xl bg-jungle-950/60 border border-jungle-900 flex items-start gap-3">
+                            <i class="fa-solid fa-temperature-full text-amber-400 mt-1"></i>
+                            <div>
+                                <h4 class="text-xs font-bold text-emerald-200">Clima</h4>
+                                <p class="text-xs text-jungle-300/80">Cálido todo el año (sin estaciones frías), humedad elevada y lluvias copiosas casi diarias.</p>
+                            </div>
+                        </div>
+
+                        <div class="p-2.5 rounded-xl bg-jungle-950/60 border border-jungle-900 flex items-start gap-3">
+                            <i class="fa-solid fa-layer-group text-emerald-400 mt-1"></i>
+                            <div>
+                                <h4 class="text-xs font-bold text-emerald-200">Flora en Estratos</h4>
+                                <p class="text-xs text-jungle-300/80">Piso inferior, sotobosque, dosel y capa emergente. Árboles gigantes, lianas y epífitas (orquídeas/bromelias).</p>
+                            </div>
+                        </div>
+
+                        <div class="p-2.5 rounded-xl bg-jungle-950/60 border border-jungle-900 flex items-start gap-3">
+                            <i class="fa-solid fa-frog text-green-400 mt-1"></i>
+                            <div>
+                                <h4 class="text-xs font-bold text-emerald-200">Fauna</h4>
+                                <p class="text-xs text-jungle-300/80">+50% de especies del planeta: aves tropicales, insectos, anfibios, reptiles y mamíferos arborícolas.</p>
+                            </div>
+                        </div>
+
+                        <div class="p-2.5 rounded-xl bg-jungle-950/60 border border-jungle-900 flex items-start gap-3">
+                            <i class="fa-solid fa-mountain-sun text-yellow-500 mt-1"></i>
+                            <div>
+                                <h4 class="text-xs font-bold text-emerald-200">Relieve & Impacto</h4>
+                                <p class="text-xs text-jungle-300/80">Llanuras y colinas bajas ecuatoriales. Problemática: >50% destruido por tala, minería y agro, liberando CO₂.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button onclick="openModal('modalSelva')" class="w-full mt-4 py-2.5 bg-jungle-900/80 hover:bg-jungle-800 border border-jungle-700/50 rounded-xl text-xs font-semibold text-emerald-200 transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-circle-info"></i> Ver Estratos & Análisis Detallado
+                </button>
+            </article>
+
+            <!-- TARJETA 2: Factores Primarios -->
+            <article class="card-item glass-card rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between group" data-category="factores">
+                <div>
+                    <div class="flex items-start justify-between mb-4">
+                        <span class="px-3 py-1 rounded-lg bg-amber-950/60 border border-amber-700/50 text-amber-300 text-xs font-bold tracking-wide uppercase">
+                            Pregunta 2
+                        </span>
+                        <div class="w-10 h-10 rounded-xl bg-amber-950 border border-amber-700/40 flex items-center justify-center text-amber-400 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-cloud-sun-rain text-lg"></i>
+                        </div>
+                    </div>
+
+                    <h3 class="font-display font-bold text-xl text-white mb-2 group-hover:text-amber-300 transition-colors">
+                        Factores Primarios de los Biomas Terrestres
+                    </h3>
+                    <p class="text-xs text-jungle-300/90 mb-6">
+                        Los dos pilares climáticos fundamentales que determinan la distribución de la vida en la Tierra.
+                    </p>
+
+                    <!-- Interactive Key Drivers Cards -->
+                    <div class="grid grid-cols-2 gap-3 mb-6">
+                        <div class="p-3 rounded-xl bg-jungle-950/80 border border-amber-900/50 text-center">
+                            <i class="fa-solid fa-temperature-high text-2xl text-amber-400 mb-2"></i>
+                            <h4 class="text-xs font-bold text-amber-200">Temperatura Media</h4>
+                            <p class="text-[11px] text-jungle-300/70 mt-1">Regula ritmos biológicos y adaptaciones térmicas.</p>
+                        </div>
+                        <div class="p-3 rounded-xl bg-jungle-950/80 border border-sky-900/50 text-center">
+                            <i class="fa-solid fa-cloud-showers-heavy text-2xl text-sky-400 mb-2"></i>
+                            <h4 class="text-xs font-bold text-sky-200">Precipitación Anual</h4>
+                            <p class="text-[11px] text-jungle-300/70 mt-1">Determina disponibilidad hídrica para la vegetación.</p>
+                        </div>
+                    </div>
+
+                    <div class="p-3.5 rounded-xl bg-amber-950/30 border border-amber-800/40">
+                        <h4 class="text-xs font-bold text-amber-300 mb-1 flex items-center gap-1.5">
+                            <i class="fa-solid fa-diagram-project"></i> Cadena de Causalidad Ecológica
+                        </h4>
+                        <p class="text-xs text-jungle-200/80 leading-relaxed">
+                            Temperatura + Precipitación + Radiación solar $\rightarrow$ Condicionan la formación del <strong class="text-white">Suelo</strong> $\rightarrow$ Permiten el crecimiento vegetal $\rightarrow$ Sustentan las <strong class="text-white">Comunidades Animales</strong>.
+                        </p>
+                    </div>
+                </div>
+
+                <button onclick="openModal('modalFactores')" class="w-full mt-6 py-2.5 bg-jungle-900/80 hover:bg-jungle-800 border border-jungle-700/50 rounded-xl text-xs font-semibold text-emerald-200 transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-sliders"></i> Ver Explicación Interactiva
+                </button>
+            </article>
+
+            <!-- TARJETA 3: Efecto de la Altitud -->
+            <article class="card-item glass-card rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between group" data-category="altitud">
+                <div>
+                    <div class="flex items-start justify-between mb-4">
+                        <span class="px-3 py-1 rounded-lg bg-sky-950/60 border border-sky-700/50 text-sky-300 text-xs font-bold tracking-wide uppercase">
+                            Pregunta 3
+                        </span>
+                        <div class="w-10 h-10 rounded-xl bg-sky-950 border border-sky-700/40 flex items-center justify-center text-sky-400 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-mountain text-lg"></i>
+                        </div>
+                    </div>
+
+                    <h3 class="font-display font-bold text-xl text-white mb-2 group-hover:text-sky-300 transition-colors">
+                        Efecto de la Altitud (Gradiente Altitudinal)
+                    </h3>
+                    <p class="text-xs text-jungle-300/90 mb-4">
+                        Cómo la elevación replica los cambios bioclimáticos desde el Ecuador hacia los Polos.
+                    </p>
+
+                    <!-- Altitudinal Steps Visualization -->
+                    <div class="space-y-2 mb-4 bg-jungle-950/60 p-3 rounded-xl border border-sky-900/40">
+                        <div class="flex items-center justify-between text-xs p-1.5 rounded bg-sky-950/40 border border-sky-800/40">
+                            <span class="font-bold text-sky-200 flex items-center gap-2">
+                                <i class="fa-regular fa-snowflake text-sky-300"></i> Cumbre
+                            </span>
+                            <span class="text-[11px] text-sky-300/80">Nieves perpetuas / Hielo</span>
+                        </div>
+                        <div class="flex items-center justify-between text-xs p-1.5 rounded bg-emerald-950/40 border border-emerald-800/40">
+                            <span class="font-bold text-emerald-200 flex items-center gap-2">
+                                <i class="fa-solid fa-wheat-awn text-amber-300"></i> Zona Media
+                            </span>
+                            <span class="text-[11px] text-emerald-300/80">Matorrales / Prados Alpinos</span>
+                        </div>
+                        <div class="flex items-center justify-between text-xs p-1.5 rounded
