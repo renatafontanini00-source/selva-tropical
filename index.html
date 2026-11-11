@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Interactivo: Biomas y Selva Tropical</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- FontAwesome para Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+</head>
+<body class="bg-emerald-950 text-emerald-50 min-h-screen flex flex-col justify-between selection:bg-emerald-600 selection:text-white">
+
+    <!-- Header / Navbar -->
+    <header class="bg-emerald-900/80 backdrop-blur-md border-b border-emerald-800 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="bg-emerald-700 p-2.5 rounded-xl shadow-lg shadow-emerald-950/50">
+                    <i class="fa-solid fa-seedling text-emerald-100 text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-tight text-white">Biomas y Selva Tropical</h1>
+                    <p class="text-xs text-emerald-300 font-medium">Canvas Educativo e Interactivo</p>
+                </div>
+            </div>
+            <!-- Buscador y Filtros rápidos -->
+            <div class="flex items-center gap-2 w-full sm:w-auto">
+                <div class="relative w-full sm:w-64">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-emerald-400">
+                        <i class="fa-solid fa-magnifying-glass text-xs"></i>
+                    </span>
+                    <input type="text" id="searchInput" onkeyup="filterCards()" placeholder="Buscar conceptos..." 
+                        class="w-full bg-emerald-950/70 border border-emerald-700/60 rounded-xl pl-9 pr-4 py-2 text-sm text-emerald-100 placeholder-emerald-400/70 focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-7xl mx-auto px-4 py-8 flex-grow w-md sm:w-full">
+
+        <!-- Categorías / Chips de Filtrado -->
+        <div class="flex items-center gap-2 overflow-x-auto pb-4 mb-6 no-scrollbar">
+            <button onclick="filterCategory('all')" id="btn-all" class="category-btn px-4 py-2 rounded-xl text-xs font-semibold bg-emerald-700 text-white shadow-md transition-all whitespace-nowrap">
+                <i class="fa-solid fa-layer-group mr-1.5"></i> Todos
+            </button>
+            <button onclick="filterCategory('selva')" id="btn-selva" class="category-btn px-4 py-2 rounded-xl text-xs font-semibold bg-emerald-900/80 text-emerald-300 border border-emerald-800 hover:bg-emerald-800 transition-all whitespace-nowrap">
+                <i class="fa-solid fa-tree mr-1.5"></i> Selva Tropical
+            </button>
+            <button onclick="filterCategory('factores')" id="btn-factores" class="category-btn px-4 py-2 rounded-xl text-xs font-semibold bg-emerald-900/80 text-emerald-300 border border-emerald-800 hover:bg-emerald-800
